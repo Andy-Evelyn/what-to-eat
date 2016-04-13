@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>今天吃什么？</title>
+	<style>
+	*{
+		padding:0;
+		margin:0;
+	}
+	.wrap{
+		width:300px;
+		height:300px;
+	}
+	.cell,.btn,.active{
+		position: absolute;
+		width:100px;
+		height:100px;
+		line-height: 100px;
+		text-align:center;
+		background-color: #BABB91;
+		border:1px solid #C2C387;
+	}
+	.btn{
+		background:#ccc;
+		cursor:pointer;
+	}
+	.active{
+		background:#84A262;
+	}
+	</style>
+</head>
+<body>
+	<div class="wrap" id="wrap">
+		<div class="cell" style="left:0;top:0;">辣子鸡</div>
+		<div class="cell" style="left:100px;top:0;">重庆小面</div>
+		<div class="cell" style="left:200px;top:0;">螺蛳粉</div>
+		<div class="cell" style="left:200px;top:100px;">酸辣粉</div>	
+		<div class="cell" style="left:200px;top:200px;">水煮鱼</div>
+		<div class="cell" style="left:100px;top:200px;">炸酱面</div>
+		<div class="cell" style="left:0px;top:200px;">大酱汤</div>
+		<div class="cell" style="left:0px;top:100px;">烤鱼</div>
+		<div class="btn" id="start" style="left:100px;top:100px;">中午吃什么？</div>
+	</div>
+	<script>
+	
+		var list = document.getElementById("wrap").children;
+		var len = list.length-1;
+		var start = document.getElementById("start");
+		var index = 0;
+		var interval = null;
+		
+	    start.onclick = function(){
+                this.running = true;
+                var remain = parseInt(Math.random() * 3000 + 1000);
+                interval = setInterval(function(){
+                        if( remain < 200){
+                                start.running = false;
+                                alert( '中午吃' +list[index].innerHTML+'吧!');
+                                clearInterval(interval);
+                        }
+                        else{
+                                list[index].className = "cell";
+                                list[(index+1)%len].className = "active";
+                                index = ++index % len;
+                                remain -= 100;
+                        	}
+                },100);
+	}
+	</script>
+</body>
+</html>
